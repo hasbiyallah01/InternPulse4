@@ -76,6 +76,11 @@ namespace InternPulse4.Infrastructure.Repositories
             _context.SaveChanges();
         }
 
+        public async Task UpdateAsync(User user)
+        {
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
+        }
     }
 }
 

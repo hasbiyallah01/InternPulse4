@@ -19,7 +19,8 @@ namespace InternPulse4.Controllers
         {
             _userService = userService;
         }
-        [HttpGet("users")]
+
+        [HttpGet("all-users")]
         public async Task<IActionResult> GetAllUsers()
         {
             var users = await _userService.GetAllUsers();
@@ -42,7 +43,7 @@ namespace InternPulse4.Controllers
             return result;
         }
 
-        [Authorize]
+        
         [HttpPut("users/{id}")]
         public async Task<IActionResult> UpdateUser([FromRoute] int id, [FromBody] UserRequest request)
         {
