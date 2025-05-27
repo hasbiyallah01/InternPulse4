@@ -1,4 +1,5 @@
-﻿using InternPulse4.Core.Domain.Entities;
+﻿using Google;
+using InternPulse4.Core.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System.Text.Json;
@@ -16,7 +17,7 @@ namespace InternPulse4.Infrastructure.Context
 
             foreach (var entityType in modelBuilder.Model.GetEntityTypes())
             {
-                foreach (var property in entityType.GetProperties())
+                foreach (var property in entityType.GetProperties()) 
                 {
                     if (property.ClrType == typeof(DateTime) || property.ClrType == typeof(DateTime?))
                     {

@@ -298,11 +298,21 @@ namespace InternPulse4.Core.Application.Services
         public async Task<BaseResponse<UserResponse>> Login(LoginRequestModel model)
         {
             var user = await _userRepository.GetAsync(model.Email);
+
+            if (user == null)
+            {
+                return new BaseResponse<UserResponse>
+                {
+                    Message = "Invalid Credentials",
+                    IsSuccessful = false
+                };
+            }
+
             if (user.Email == model.Email && BCrypt.Net.BCrypt.Verify(model.Password, user.Password))
             {
                 return new BaseResponse<UserResponse>
                 {
-                    Message = "Login Successfull",
+                    Message = "Login Successful",
                     IsSuccessful = true,
                     Value = new UserResponse
                     {
@@ -313,11 +323,13 @@ namespace InternPulse4.Core.Application.Services
                     }
                 };
             }
+
             return new BaseResponse<UserResponse>
             {
                 Message = "Invalid Credentials",
                 IsSuccessful = false
             };
         }
+
     }
 }
